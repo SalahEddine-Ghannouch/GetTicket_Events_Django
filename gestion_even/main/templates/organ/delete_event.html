@@ -1,0 +1,12 @@
+{% extends 'base/base_organ.html' %}
+{% block title %}Delete Event{% endblock title %}
+{% block breadcrumb %}Delete Event{% endblock breadcrumb %}
+
+{% block content %}
+    <h4>Delete Event</h4><br>
+    <form action="" method="post" style=" border: 1px solid #999;box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);padding:8px;height:160px;">
+        {% csrf_token %}
+        <h6>Are you sure you want to delete this Event?</h6><br><br>
+        <button class="btn btn-danger ml-2" type="submit">Confirm</button>
+    </form>
+{% endblock content %}

@@ -1,0 +1,30 @@
+{% load static %}
+{% for eve in events %}
+                        <!-- Here We need to check the qyantity of -->
+                        <div class="col-lg-4 col-md-6 wow fadeInUp event-item" data-wow-delay="0.1s">
+                            <div class="package-item">
+                                <div class="overflow-hidden">
+                                    <img class="img-fluid" src="{% static 'img/package-1.jpg' %}" alt="">
+                                </div>
+                                <div class="d-flex border-bottom">
+                                    <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>Where</small>
+                                    <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt text-primary me-2"></i>When</small>
+                                </div>
+                                <div class="text-center p-4">
+                                    <h3 class="mb-0">Price DH</h3>
+                                    <div class="mb-3">
+                                        <small class="fa fa-star text-primary"></small>
+                                        <small class="fa fa-star text-primary"></small>
+                                        <small class="fa fa-star text-primary"></small>
+                                        <small class="fa fa-star text-primary"></small>
+                                        <small class="fa fa-star text-primary"></small>
+                                    </div>
+                                    <p>{{ eve.title }}</p>
+                                    <div class="d-flex justify-content-center mb-2" id="blur">
+                                        <a href="#" onclick="toggleBlur('{{ eve.title }}','{{eve.description|escapejs}}'); return false;" class="btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Event Details</a>
+                                        <a href="{% url 'Check' eve.id %}" class="btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Get your ticket</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+{% endfor %}

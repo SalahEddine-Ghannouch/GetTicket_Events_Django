@@ -1,0 +1,106 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/styleCheckout.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <title>EvenTick | Checkout</title>
+</head>
+<body>
+    <div class="container d-lg-flex" style="border-radius: 2%; width: max-content;">
+        <div class="box-2">
+            <div class="box-inner-2">
+                <div>
+                    <p class="fw-bold" style="font-size: x-large;">Payment Details</p>
+                    <p class="dis mb-3" style="font-size: medium;">Complete your purchase by providing your payment details</p>
+                </div>
+                <form action="">
+                    <div class="mb-3">
+                        <p class="dis fw-bold mb-2">Email address</p>
+                        <input class="form-control" type="email" value="{{user.email}}" name="email">
+                    </div>
+                    <div>
+                        <p class="dis fw-bold mb-2">Card details</p>
+                        <div class="d-flex align-items-center justify-content-between card-atm border rounded">
+                            <div class="fab fa-cc-visa ps-3"></div>
+                            <input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" name="CardNumber">
+                            <div class="d-flex w-50">
+                                <input type="text" class="form-control px-0" placeholder="MM/" name="month">
+                                <input type="text" class="form-control px-0" placeholder="YY" name="year">
+                                <input type="password" maxlength=3 class="form-control px-0" placeholder="CVV" name="CVV">
+                            </div>
+                        </div>
+                        <div class="my-3 cardname">
+                            <p class="dis fw-bold mb-2">Cardholder name</p>
+                            <input class="form-control" type="text" placeholder="Cardholder Name" name="Holder">
+                        </div>
+                        <div class="address">                         
+                            <div class=" my-3">
+                                <p class="dis fw-bold mb-2">Ticket Number</p>
+                                <div class="inputWithcheck">
+                                    <input class="form-control" type="text" readonly value="GB012345B9">
+                                    <span class="fas fa-check"></span>
+
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column dis">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <p class="fw-bold" style="font-size: large;">Tickets : </p>
+                                    <p id="result" class="fw-bold" style="font-size: large;">{{order.get_cart_items}}</p>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <p class="fw-bold" style="font-size: large;">Total : </p>
+                                    <p id="result" class="fw-bold" style="font-size: large;">{{order.get_cart_total}} DH</p>
+                                </div>
+                                <a href="#" style="text-decoration: none;"><div id="resultpay" class="btn btn-primary mt-2">Pay</div></a><br>
+                                <h6 style="text-align: center;">OR</h6>
+                                <a href="#" style="text-decoration: none;"><div id="resultpay" class="btn btn-primary mt-2">Cancel</div></a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Retrieve the quantity and category values when the form is submitted
+        var Qtet = document.getElementById("select1");
+        var category = document.getElementById("select2");
+        var result = document.getElementById("result");
+        var resultpay = document.getElementById("resultpay");
+        var resultinfos = document.getElementById("resultinfos");
+
+        Qtet.addEventListener("change", calculateResult);
+        category.addEventListener("change", calculateResult);
+
+        var resultValue;
+        function calculateResult() {
+            // Get the selected values
+            var quantity = parseInt(Qtet.value);
+            var cat = select2.value;
+            if(cat != "Category"){
+                if(cat == "VIP"){
+                    resultValue = quantity * 300;
+                }else if(cat == "First Class"){
+                    resultValue = quantity * 200;
+                }else if(cat == "Standard"){
+                    resultValue = quantity * 100;
+                }
+            
+                result.textContent = resultValue+" DH";
+                resultpay.textContent = "Pay "+resultValue+" DH";
+                resultinfos.textContent = resultValue+" DH";
+            }            
+        }
+    </script>
+
+</body>

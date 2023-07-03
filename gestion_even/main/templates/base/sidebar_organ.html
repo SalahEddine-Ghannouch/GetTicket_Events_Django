@@ -1,0 +1,198 @@
+{% load static %}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+      <img src="{% static 'img/logo.png' %}" alt="Logo" class="brand-image elevation-3"
+           style="opacity: .8">
+          <span class="brand-text font-weight-light">Organ Panel</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{% static 'img/avatar5.png' %}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="{% url 'useracc:Yourprofile' %}" class="d-block">{{request.user}}</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="{% url 'dashboard_organ' %}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+
+
+          {% comment %} <li class="nav-item has-treeview menu-close">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-folder"></i>
+              <p>
+                Event Category
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item ml-3">
+                <a href="{% url 'organ:create-event-category' %}" class="nav-link">
+                  <i class="far fa fa-edit nav-icon"></i>
+                  <p>Create Category</p>
+                </a>
+              </li>
+              <li class="nav-item ml-3">
+                <a href="{% url 'organ:event-category-list' %}" class="nav-link">
+                  <i class="far fa fa-list nav-icon"></i>
+                  <p>Category List</p>
+                </a>
+              </li>
+            </ul>
+          </li> {% endcomment %}
+
+
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-calendar"></i>
+              <p>
+                Events
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item ml-3">
+                <a href="{% url 'organ:event-create' %}" class="nav-link">
+                  <i class="far fa fa-edit nav-icon"></i>
+                  <p>Create Event</p>
+                </a>
+              </li>
+              <li class="nav-item ml-3">
+                <a href="{% url 'organ:event-list' %}" class="nav-link">
+                  <i class="far fa fa-list nav-icon"></i>
+                  <p>Event List</p>
+                </a>
+              </li>
+
+              <li class="nav-item ml-3">
+                <a href="{% url 'organ:complete-event' %}" class="nav-link">
+                  <i class="far fa fa-list nav-icon"></i>
+                  <p>Complete Event List</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+
+          {% comment %} <li class="nav-item has-treeview menu-close">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-fire"></i>
+              <p>
+                Event Member
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item ml-3">
+                <a href="{% url 'organ:add-event-member' %}" class="nav-link">
+                  <i class="far fa fa-edit nav-icon"></i>
+                  <p>Add Event Member</p>
+                </a>
+              </li>
+              <li class="nav-item ml-3">
+                <a href="{% url 'organ:join-event-list' %}" class="nav-link">
+                  <i class="far fa fa-list nav-icon"></i>
+                  <p>Join Event List</p>
+                </a>
+              </li>
+            </ul>
+          </li> {% endcomment %}
+
+
+
+
+
+          {% comment %} <li class="nav-item has-treeview menu-close">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-fire"></i>
+              <p>
+                Users
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item ml-3">
+                <a href="{% url 'organ:add_user' %}" class="nav-link">
+                  <i class="far fa fa-edit nav-icon"></i>
+                  <p>Add User</p>
+                </a>
+              </li>
+              <li class="nav-item ml-3">
+                <a href="{% url 'organ:list_user' %}" class="nav-link">
+                  <i class="far fa fa-list nav-icon"></i>
+                  <p>Users List</p>
+                </a>
+              </li>
+            </ul>
+          </li> {% endcomment %}
+
+
+
+          {% comment %} <li class="nav-item has-treeview menu-close">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-calendar"></i>
+              <p>
+                Items
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{% url 'organ:event-wish-list' %}" class="nav-link">
+                  <i class="far fa fa-list nav-icon"></i>
+                  <p>Event Wish List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'organ:add-event-wish-user' %}" class="nav-link">
+                  <i class="far fa fa-edit nav-icon"></i>
+                  <p>Add Event Wish User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'admin_events:absense-user' %}" class="nav-link">
+                  <i class="far fa fa-list nav-icon"></i>
+                  <p>Absense User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'admin_events:complete-event-user' %}" class="nav-link">
+                  <i class="far fa fa-list nav-icon"></i>
+                  <p>Complete Event User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'admin_events:create-user-mark' %}" class="nav-link">
+                  <i class="far fa fa-edit nav-icon"></i>
+                  <p>Create User Mark</p>
+                </a>
+              </li>
+            </ul>
+          </li> {% endcomment %}
+
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

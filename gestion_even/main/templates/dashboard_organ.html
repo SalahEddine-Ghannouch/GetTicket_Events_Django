@@ -1,0 +1,140 @@
+{% extends 'base/base_organ.html' %}
+{% block title %}Dashboard Organisateur{% endblock title %}
+{% block breadcrumb %}Dashboard{% endblock breadcrumb %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-info">
+        <div class="inner">
+          {% if event_ctg %}
+            <h3>{{ event_ctg }}</h3>
+          {% else %}
+            <h3>0</h3>
+          {% endif %}
+
+          <p>Event Category</p>
+        </div>
+        {% comment %} <div class="icon">
+          <i class="ion ion-bag"></i>
+        </div>
+        <a href="#" class="small-box-footer">More <i class="fas fa-arrow-circle-right"></i></a> {% endcomment %}
+      </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-success">
+        <div class="inner">
+          {% if event %}
+            <h3>{{ event }}</h3>
+          {% else %}
+            <h3>0</h3>
+          {% endif %}
+
+          <p>Events</p>
+        </div>
+        {% comment %} <div class="icon">
+          <i class="ion ion-stats-bars"></i>
+        </div>
+        <a href="#" class="small-box-footer">More <i class="fas fa-arrow-circle-right"></i></a> {% endcomment %}
+      </div>
+    </div>
+    <!-- ./col -->
+    {% comment %} <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-info">
+        <div class="inner">
+          {% if user %}
+            <h3>{{ user }}</h3>
+          {% else %}
+            <h3>0</h3>
+          {% endif %}
+
+          <p>User Registrations</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-person-add"></i>
+        </div>
+        <a href=" {% url 'organ:list_user' %}" class="small-box-footer">More <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
+    </div> {% endcomment %}
+    <!-- ./col -->
+    {% comment %} <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-success">
+        <div class="inner">
+          {% if complete_event %}
+            <h3>{{ complete_event }}</h3>
+          {% else %}
+          <h3>0</h3>
+          {% endif %}
+
+          <p>Complete Event</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-pie-graph"></i>
+        </div>
+        <a href="{% url 'organ:complete-event' %}" class="small-box-footer">More <i class="fas fa-arrow-circle-right"></i></a>
+      </div>
+    </div> {% endcomment %}
+    <!-- ./col -->
+  </div>
+  <!-- Event List -->
+  <div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-5">
+                        <h5>Event List</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                  <table id="myTable" class="table table-striped table-bordered datatable dataTable no-footer"  role="grid" aria-describedby="DataTables_Table_0_info" style="border-collapse: collapse !important">
+                    <thead>
+                        <tr role="row">
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Place</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in events %}
+                          <tr>
+                              <td>{{ forloop.counter }}</td>
+                              <td>{{ event.name|capfirst }}</td>
+                              <td>{{ event.category }}</td>
+                              <td>{{ event.start_date }}</td>
+                              <td>{{ event.end_date }}</td>
+                              <td>{{ event.venue|capfirst }}</td>
+                              <td>
+                                    <a href="#" class="text-danger">{{ event.status|title }}</a>
+                              </td>
+                              <td>
+                                  <a class="btn btn-info" href="{% url 'organ:event-detail' event.pk %}" title="view">
+                                      <i class="fa fa-eye"></i>
+                                  </a>
+                                  <a class="btn btn-info" href="{% url 'organ:event-edit' event.pk %}" title="edit">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                  <a class="btn btn-danger" href="{% url 'organ:event-delete' event.pk %}" title="delete">
+                                      <i class="fa fa-trash"></i>
+                                  </a>
+                              </td>
+                          </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,281 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>EventTick | Profile</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/profile.css' %}" rel="stylesheet">
+    <link href="{% static 'css/ticket.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="/" class="navbar-brand p-0">
+                <h1 class="text-primary m-0"><i class="fa fa-map-marker-alt me-3"></i>EventTick</h1>
+                <!-- <img src="img/logo.png" alt="Logo"> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="/" class="nav-item nav-link ">Home</a>
+                    <a href="#" class="nav-item nav-link">About</a>
+                    <a href="/#blur" class="nav-item nav-link">Events</a>
+                    <a href="{% url 'useracc:Yourprofile' %}" class="nav-item nav-link active">Profile</a>
+                
+                    <a href="#" class="nav-item nav-link">Contact</a>
+                </div>
+                {% if user.is_authenticated %}
+                <div class="row">
+                    <div class="col mt-2">
+                      <a href="{% url 'useracc:logout' %}" class="btn btn-primary rounded-pill py-2 px-4">LogOut</a>
+                    </div>
+                    <div class="col mt-2">
+                        <a href="{% url 'useracc:Yourprofile' %}" class="btn btn-primary rounded-pill py-2 px-4 bg-transparent d-flex align-items-center border-0" id="scrollButton">
+                            <img src="{% static 'img/userProfile.png' %}" alt="Icon" class="mr-2 img-fluid" style="max-width: 26px; height: auto;">
+                            <span class="ms-2">Hello</span>
+                            <span class="ms-1">{{user.first_name}}</span>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="{% url 'Cart' %}" class="btn btn-primary rounded-pill py-2 px-4 bg-transparent d-flex align-items-center border-0" id="scrollButton2">
+                            <img src="{% static 'img/add-to-cart.png' %}" alt="Icon" class="mr-2 img-fluid" style="max-width: 26px; height: auto;">
+                            <span class="ms-2">Cart</span>
+                            <p style="display: block;
+                            text-align: center;
+                            color: #fff;
+                            background-color: #86B817;
+                            width: 20px;
+                            height: 22px;
+                            border-radius: 50%;
+                            ">0</p>
+                        </a>
+                    </div>                                                                       
+                </div>
+                {% else %}
+                <div class="row">
+                    <div class="col mt-2">
+                      <a href="{% url 'useracc:login' %}" class="btn btn-primary rounded-pill py-2 px-4">Login</a>
+                    </div>
+                    <div class="col mt-2">
+                      <a href="{% url 'useracc:register' %}" class="btn btn-primary rounded-pill py-2 px-4">Register</a>
+                    </div>
+                </div>
+                <div class="col">
+                    <a href="{% url 'Cart' %}" class="btn btn-primary rounded-pill py-2 px-4 bg-transparent d-flex align-items-center border-0" id="scrollButton2">
+                        <img src="{% static 'img/add-to-cart.png' %}" alt="Icon" class="mr-2 img-fluid" style="max-width: 26px; height: auto;">
+                        <span class="ms-2">Cart</span>
+                        <p style="display: block;
+                        text-align: center;
+                        color: #fff;
+                        background-color: #86B817;
+                        width: 20px;
+                        height: 22px;
+                        border-radius: 50%;
+                        ">0</p>
+                    </a>
+                </div> 
+                {% endif %}
+        </nav>
+    </div>
+    <br><br><br>
+
+    <!-- Navbar & Hero Start -->
+    <div class="container bg-white mt-5 mb-5 full-page" style="border-radius: 2%;">
+        <div class="row">
+            {% if messages %}
+            <div class="alert alert-danger alert-dismissible fade show rounded" role="alert" id="alertMessage">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+        
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">{{user.first_name}} {{user.last_name}}</span><span class="text-black-50">{{user.email}}</span><span> </span></div>
+            </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h1 class="text-right">Hi {{user.first_name}}!</h1>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h3 class="text-right">Your Profile Settings</h3>
+                    </div>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row mt-2">
+                            <div class="col-md-6"><label class="labels">First Name</label><input type="text" class="form-control" placeholder="first name" value="{{user.first_name}}" name="first_name" required></div>
+                            <div class="col-md-6"><label class="labels">Last Nale</label><input type="text" class="form-control" value="{{user.last_name}}" placeholder="last name" name="last_name" required></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12"><label class="labels">User Name</label><input type="text" class="form-control" placeholder="User name" value="{{user.username}}" name="username" required></div>
+                            <div class="col-md-12"><label class="labels">Email Address</label><input type="text" class="form-control" placeholder="enter email Address" value="{{user.email}}" name="email" required></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6"><label class="labels">Passowrd</label><input type="password" class="form-control" placeholder="Enter the Passowrd" value="" name="password1" required></div>
+                            <div class="col-md-6"><label class="labels">Confirm password</label><input type="password" class="form-control" value="" placeholder="Confirm the password" name="password2" required></div>
+                        </div>
+                        <br>
+                        <div class="col">
+                            <span class="ms-2"><a href="#" ><input class="btn btn-primary rounded-pill py-2 px-4" type="submit" value="Save Profile"></a></span>
+                            <span class="ms-2" ><a href="{% url 'dashboard_organ' %}" ><input class="btn btn-primary rounded-pill py-2 px-4" type="button" value="Publish Your Event"></a></span>
+                        </div>
+                    </form>
+                    
+                   
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 py-5" style="width: 100%;">
+                    <div class="d-flex justify-content-between align-items-center experience"><span>Your Tickets</span><span class="border px-3 p-1"></span></div><br>
+                    {% for pay in pays %}
+                        <!--<div class="col-md-12"><label class="labels">{{pay.eventName}}</label><input type="text" class="form-control" value="Ticket N : {{pay.TicketNumber}}" readonly></div>-->
+                    {% endfor %}
+                    
+
+                        <div class="ticket" style="height: 500px; width: 100%; overflow-y: scroll; ">
+                            {% for payment, event in joined_data.items %}
+                                    <div class="holes-top"></div>
+                                    <div class="title">
+                                        <p class="cinema"></p>
+                                        <p class="movie-title">{{event.name}}</p>
+                                    </div>
+                                    <div class="poster">
+                                        <img style="width: 350px; height: 250px;" src="{{event.eventimage.image.url}}" alt="Movie: Only God Forgives" />
+                                    </div>
+                                    <div class="info">
+                                    <table>
+                                        <tr>
+                                            <th>MONTH</th>
+                                            <th>DAY</th>
+                                            <th>YEAR</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="bigger">{{ event.start_date|date:"F" }}</td>
+                                            <td class="bigger">{{ event.start_date|date:"d" }}</td>
+                                            <td class="bigger">{{ event.start_date|date:"Y" }}</td>
+                                        </tr>
+                                    </table>
+                                    <table>
+                                        <tr>
+                                            <th>PRICE</th>
+                                        </tr>
+                                        <tr>
+                                            <td>${{event.price}}</td>
+                                        </tr>
+                                    </table>
+                                    </div>
+                                    <div class="holes-lower"></div>
+                                    <div class="serial">
+                                        <table class="barcode"><tr></tr></table>
+                                        <table class="numbers">
+                                            <tr>
+                                                {% for char in payment.TicketNumber %}
+                                                <td>{{char}}</td>
+                                                {% endfor %}
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <hr style="border-top: 2px solid black; font-weight: bold;">
+                            {% endfor %}
+                        </div>
+                    </div>
+                       
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    
+    <!-- Navbar & Hero End -->
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script>
+    window.addEventListener('scroll', function() {
+        var scrollButton = document.getElementById('scrollButton');
+        var scrollButton2 = document.getElementById('scrollButton2');
+        var scrollPosition = window.scrollY;
+
+        if (scrollPosition > 0) {
+            scrollButton.classList.add('text-dark');
+            scrollButton2.classList.add('text-dark');
+        } else {
+            scrollButton.classList.remove('text-dark');
+            scrollButton2.classList.remove('text-dark');
+        }
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'lib/wow/wow.min.js' %}"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+<script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+<script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+<script src="{% static 'js/ticket.js' %}"></script>
+
+<!-- Template Javascript -->
+<script src="{% static 'js/main.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        // Close alert on button click
+        $(".alert .close").on("click", function() {
+            $(this).parent().hide();
+        });
+    });
+</script>
+</body>
+</html>

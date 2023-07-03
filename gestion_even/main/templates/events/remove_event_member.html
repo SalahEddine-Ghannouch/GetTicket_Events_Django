@@ -1,0 +1,12 @@
+{% extends 'base/base.html' %}
+{% block title %}Remove Event Member{% endblock title %}
+{% block breadcrumb %}Remove Event Member{% endblock breadcrumb %}
+
+{% block content %}
+    <h1>Remove Event Member</h1><br>
+    <form action="" method="post" style=" border: 1px solid #999;box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);padding:8px;height:160px;">
+        {% csrf_token %}
+        <p>Are you sure you want to delete "{{ eventmember.user }}" from "{{ eventmember.event }}" Event?</p><br><br>
+        <button class="btn btn-danger ml-2" type="submit">Confirm</button>
+    </form>
+{% endblock content %}

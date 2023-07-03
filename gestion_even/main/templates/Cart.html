@@ -1,0 +1,240 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>EventTick | Cart</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/styleCheckout.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <link href="{% static 'css/styleCart.css' %}" rel="stylesheet">
+    <link href="{% static 'css/Check.css' %}" rel="stylesheet">
+
+
+   
+</head>
+
+<body>
+<div class="container" id="blur" style="border-radius: 3%;">
+    <div class="wrap cf container">
+        <h1 class="projTitle">Responsive Table<span>-Less</span> Shopping Cart</h1>
+        <div class="heading cf">
+          <h1>My Cart</h1>
+          <a href="/#blur" class="continue">Continue Shopping</a>
+        </div>
+        <div class="cart">
+          <ul class="cartWrap">
+            {% for item in items %}
+                {% if not forloop.counter|divisibleby:2 %}
+                    <li class="items odd">
+                        <div class="infoWrap"> 
+                            <div class="cartSection">
+                                <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />
+                                <p class="itemNumber">{{item.start_Date}}</p>
+                                <h2>{{ item.eventName }}</h2>
+                                <p> <input type="text"  class="qty" value="{{ item.quantity}}" readonly/>X ${{ item.price}}</p>
+                                <p class="stockStatus">Available</p>
+                            </div>  
+                            <div class="prodTotal1 cartSection">
+                                <p>{{ item.price}} DH</p>
+                            </div>
+                            <div class="cartSection removeWrap">
+                                <a href="#" class="remove" data-event-id="{{ item.eventName }}" id="rmv">x</a>
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
+                {% if forloop.counter|divisibleby:2 %}
+                    <li class="items even">
+                        <div class="infoWrap"> 
+                            <div class="cartSection">
+                                <img src="http://lorempixel.com/output/technics-q-c-300-300-4.jpg" alt="" class="itemImg" />
+                                <p class="itemNumber">{{ item.start_Date }}</p>
+                                <h2>{{ item.eventName }}</h2>
+                                <p> <input type="text"  class="qty" value="{{ item.quantity}}" readonly/>X {{ item.price}}</p>
+                                <p class="stockStatus">Available</p>
+                            </div>  
+                            <div class="prodTotal cartSection">
+                                <p>{{ item.price}} DH</p>
+                            </div>
+                            <div class="cartSection removeWrap">
+                                <a href="#" class="remove" data-event-id="{{ item.eventName }}" id="rmv">x</a>
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            <hr>
+          </ul>
+        </div>
+        
+        <div class="subtotal cf" id="blur">
+          <ul>
+                <li class="totalRow"><span class="label">Total Tickets : </span><span class="value">{{count}} Tickets</span></li>
+                <li class="totalRow final"><span class="label">Total   :  </span>{{total}} DH</li>
+                <!--<li class="totalRow"><a href="{% url 'CartCheckout' %}" class="btn continue">Checkout</a></li>-->
+                <a href="#" onclick="Check(); return false;" class="btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Checkout</a>
+          </ul>
+        </div>
+    </div>
+</div>
+
+
+    <div id="popup" style="height: 98vh; border-radius: 1%;">
+        <div class="container d-lg-flex" style="border-radius: 2%; width: max-content;">
+            <div class="box-2">
+                <div class="box-inner-2">
+                    <div>
+                        <p class="fw-bold" style="font-size: x-large;">Payment Details</p>
+                        <p class="dis mb-3" style="font-size: medium;">Complete your purchase by providing your payment details</p>
+                    </div>
+                    <form action="">
+                        <div class="mb-3">
+                            <p class="dis fw-bold mb-2">Email address</p>
+                            <input class="form-control" type="email" value="{{user.email}}" name="email" id="email">
+                        </div>
+                        <div>
+                            <p class="dis fw-bold mb-2">Card details</p>
+                            <div class="d-flex align-items-center justify-content-between card-atm border rounded">
+                                <div class="fab fa-cc-visa ps-3"></div>
+                                <input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" name="CardNumber" id="CardNumber">
+                                <div class="d-flex w-50">
+                                    <input type="text" class="form-control px-0" placeholder="MM/" name="month" id="month">
+                                    <input type="text" class="form-control px-0" placeholder="YY" name="year" id="year">
+                                    <input type="password" maxlength=3 class="form-control px-0" placeholder="CVV" name="CVV" id="cvv">
+                                </div>
+                            </div>
+                            <div class="my-3 cardname">
+                                <p class="dis fw-bold mb-2">Cardholder name</p>
+                                <input class="form-control" type="text" placeholder="Cardholder Name" name="Holder" id="holderid">
+                            </div>
+                            <div class="address">                         
+                                <div class="d-flex flex-column dis">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <p class="fw-bold" style="font-size: large;">Tickets : </p>
+                                        <p id="result" class="fw-bold" style="font-size: large;">{{count}}</p>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <p class="fw-bold" style="font-size: large;">Total : </p>
+                                        <p id="result" class="fw-bold" style="font-size: large;">{{total}} DH</p>
+                                    </div>
+                                    <a href="/" style="text-decoration: none;"><div id="resultpay" data-event-id="{{ request.user }}" class="btn btn-primary mt-2">Pay</div></a><br>
+                                    <h6 style="text-align: center;">OR</h6>
+                                    <a href="#" onclick="Check(); return false;" style="text-decoration: none;"><div id="resultpay" class="btn btn-primary mt-2">Cancel</div></a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Add click event handler for the remove link
+            $('.remove').click(function(e) {
+                e.preventDefault(); // Prevent the default link behavior
+    
+
+                // Get the event name from the data attribute
+                var eventName = $(this).data('event-id');
+    
+                // Send an AJAX request to your Django view
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'rmoveitem' %}",
+                    data: {
+                        eventName: eventName,
+                        csrfmiddlewaretoken: '{{ csrf_token }}' // Add the CSRF token
+                    },
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}'); // Set the CSRF token in the request header
+                    },
+                    success: function(response) {
+                        // On success, remove the item from the DOM
+                        $(e.target).closest('.items').remove();
+
+                        location.reload();
+
+                        var cartCount = localStorage.getItem("cartCount");
+                        cartCount = cartCount - 1;
+                        localStorage.setItem("cartCount", cartCount.toString());
+                        
+                    },
+
+                    
+                    error: function(xhr, errmsg, err) {
+                        // Handle any error that occurred during the AJAX request
+                        console.log(errmsg);
+                    }
+                });
+            });
+        });
+    </script>
+    
+        
+
+
+<script>
+    const Check = () => {
+      const blurEl = document.getElementById("blur");
+      blurEl.classList.toggle("active");
+  
+      const popupEl = document.getElementById("popup");
+      popupEl.classList.toggle("active");
+  
+      return false;
+    };
+  </script>
+
+<script>
+    var csrfToken = "{{ csrf_token }}";
+  </script>
+  
+
+<script type="text/javascript">
+    $(document).ready(function() {
+  $("#resultpay").click(function() {
+    var eventId = $(this).data("event-id");
+    
+    // Add the CSRF token to the AJAX request headers
+    var headers = {
+      "X-CSRFToken": csrfToken
+    };
+
+    $.ajax({
+      url: "{% url 'checkAll' %}",
+      type: "POST",
+      headers: headers,
+      data: {
+        event_id: eventId,
+        cardNumber: $('#CardNumber').val(),
+        month: $('#month').val(),
+        year: $('#year').val(),
+        cvv: $('#cvv').val(),
+        cardholderName: $('#holderid').val(),
+      },
+      success: function(response) {
+        // Handle the response from the view
+        // For example, you can show a success message or update the cart icon
+        var cartCount = localStorage.getItem("cartCount");
+                        cartCount = 0;
+                        localStorage.setItem("cartCount", cartCount.toString());
+      },
+      error: function(xhr, errmsg, err) {
+        // Handle the error, if any
+      }
+    });
+  });
+});
+  </script>
+
+</body>
+</html>

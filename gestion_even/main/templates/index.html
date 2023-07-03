@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Package Start -->
+<div class="container" id="blur">
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Events</h6>
+                <h1 class="mb-5">Upcomping Events</h1>
+            </div>
+            
+                <div id="events-container">
+                    <div class="row g-4 justify-content-center">
+                        {% for eve in events %}
+                            <!-- Here We need to check the qyantity of -->
+                            <div class="col-lg-4 col-md-6 wow fadeInUp event-item" data-wow-delay="0.1s">
+                                <div class="package-item">
+                                    <div class="overflow-hidden">
+                                        <img class="img-fluid" src="{{eve.eventimage.image.url}}" alt="" style="width: 400px; height: 300px;">
+                                    </div>
+                                    <div class="d-flex border-bottom">
+                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{eve.venue}}</small>
+                                        <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt text-primary me-2"></i>{{eve.start_date}}</small>
+                                    </div>
+                                    <div class="text-center p-4">
+                                        <h3 class="mb-0">{{eve.price}} DH</h3>
+                                        <div class="mb-3">
+                                            <small class="fa fa-star text-primary"></small>
+                                            <small class="fa fa-star text-primary"></small>
+                                            <small class="fa fa-star text-primary"></small>
+                                            <small class="fa fa-star text-primary"></small>
+                                            <small class="fa fa-star text-primary"></small>
+                                        </div>
+                                        <p>{{ eve.name }}</p>
+                                        <div class="d-flex justify-content-center mb-2" id="blur">
+                                            <a href="#" onclick="toggleBlur('{{ eve.name }}','{{eve.description|escapejs}}'); return false;" class="btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Event Details</a>
+                                            <!--<button data-event="{{ eve.id }}" data-action="add" onclick="addToCart('{{ eve.id }}')" class="btn btn-sm btn-primary px-3  border-end">Add To Cart</button>-->
+                                            {% if user.is_authenticated %}
+                                            <button class="btn-cart btn-sm btn-primary px-3  border-end" data-event-id="{{ eve.id }}" id="addToCartBtn" style="color: white;">Add To Cart</button>
+                                            {% endif %}
+                                            <a href="{% url 'Check' eve.id %}" class="btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Get your ticket</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <!-- Package End -->
+
+
+    <!-- Process Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center pb-4 wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Get your Ticket</h6>
+                <h1 class="mb-5">2 Easy Steps</h1>
+            </div>
+            <div class="row gy-5 gx-4 justify-content-center">
+                <div class="col-lg-4 col-sm-6 text-center pt-4 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="position-relative border border-primary pt-5 pb-4 px-4">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-primary rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width: 100px; height: 100px;">
+                            <i class="fa fa-globe fa-3x text-white"></i>
+                        </div>
+                        <h5 class="mt-4">Choose An Event</h5>
+                        <hr class="w-25 mx-auto bg-primary mb-1">
+                        <hr class="w-50 mx-auto bg-primary mt-0">
+                        <p class="mb-0">Browse through our extensive collection of exciting events and discover a world of possibilities. Explore the event listings, read detailed descriptions, check out the dates and venues</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6 text-center pt-4 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="position-relative border border-primary pt-5 pb-4 px-4">
+                        <div class="d-inline-flex align-items-center justify-content-center bg-primary rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width: 100px; height: 100px;">
+                            <i class="fa fa-dollar-sign fa-3x text-white"></i>
+                        </div>
+                        <h5 class="mt-4">Pay Online</h5>
+                        <hr class="w-25 mx-auto bg-primary mb-1">
+                        <hr class="w-50 mx-auto bg-primary mt-0">
+                        <p class="mb-0">Once you've selected your desired event, purchasing tickets is a breeze. Our secure online payment system allows you to conveniently complete your transaction from the comfort of your own home.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Process Start -->
+    <style>
+        .testimonial-carousel .testimonial-item {
+            width: 420px;
+            height: 400px;
+        }
+    </style>
+
+    <!-- Testimonial Start -->
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s" id="Top">
+        <div class="container">
+            <div class="text-center">
+                <h6 class="section-title bg-white text-center text-primary px-3">Satatistics</h6>
+                <h1 class="mb-5">Our Top selling Events</h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel position-relative">
+                {% for ev in events %}
+                    {% for top in Topevents %}
+                        {% if ev.name == top.eventName %}
+                            <div class="testimonial-item bg-white text-center border p-4">
+                                <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="{{ev.eventimage.image.url}}" style="width: 80px; height: 80px;">
+                                <h5 class="mb-0">{{ev.name}}</h5>
+                                <p>{{ev.venue}}, {{ev.start_date}}</p>
+                                <p class="mb-0">{{ev.description}}</p>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+</div>  
+<div id="popup">
+    <h2 id="title">
+      Event Title : 
+    </h2>
+    <p id="desc">
+      Event Description
+    </p>
+    <a href="#" onclick="toggleBlur(); return false;">Close</a>
+  </div>
+    <!-- Footer Start -->
+   <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s" id="contact">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-3 col-md-6">
+                <h4 class="text-white mb-3">EventTick</h4>
+                <a class="btn btn-link" href="">About Us</a>
+                <a class="btn btn-link" href="">Contact Us</a>
+                <a class="btn btn-link" href="">Privacy Policy</a>
+                <a class="btn btn-link" href="">Terms & Condition</a>
+                <a class="btn btn-link" href="">FAQs & Help</a>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h4 class="text-white mb-3">Contact</h4>
+                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, Rabat, Maroc</p>
+                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+212 654 5755 60</p>
+                <p class="mb-2"><i class="fa fa-envelope me-3"></i>EvenTick@Events.com</p>
+                <div class="d-flex pt-2">
+                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                    <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h4 class="text-white mb-3">Thank You!</h4>
+                <p>We appreciate your support and feedback.</p>
+                <div class="position-relative mx-auto" style="max-width: 400px;">
+                    <input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Any feedbacks?">
+                    <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="copyright">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    &copy; <a class="border-bottom" href="#">EvenTick</a>, All Right Reserved.
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-menu">
+                        <a href="">Home</a>
+                        <a href="">Cookies</a>
+                        <a href="">Help</a>
+                        <a href="">FQAs</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+  
+{% endblock %}

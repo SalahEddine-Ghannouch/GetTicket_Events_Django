@@ -1,0 +1,58 @@
+{% extends 'base/base.html' %}
+{% block title %}Event Detail{% endblock title %}
+{% block breadcrumb %}Event Detail{% endblock breadcrumb %}
+
+{% block extrahead %}
+    {% load static %}
+    <style>
+        @font-face { font-family: JuneBug; src: url({% static 'fonts/Minion-Regular.ttf' %}); }
+        span {
+            font-size: 20px;
+        }
+    </style>
+{% endblock extrahead %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h5>Event Detail</h5>
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-success" href="{% url 'admin_events:event-list' %}">Event List</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <img src="{{ event.eventimage.image.url }}" alt="Image" height="520px" width="100%">
+                    <div class="row" style=" border: 1px solid #999;box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);padding:8px;">
+                        <div class="com-md-6">
+                            <table class="table">
+                                <tr>
+                                    <td><span>Event Name: <em style="font-weight: bold;">{{ event.name }}</em></span></td>
+                                    <td><span>Event Category: <em style="font-weight: bold;">{{ event.category }}</em></span></td>
+                                    <td><span>Start Date: <em style="font-weight: bold;">{{ event.start_date }}</em></span></td>
+                                    <td><span>End Date: <em style="font-weight: bold;">{{ event.end_date }}</em></span></td>
+                                </tr>
+                                <tr>
+                                    <td><span>Venue: <em style="font-weight: bold;">{{ event.venue }}</em></span></td>
+                                    <td colspan="2"><span>Scheduled Status: <em style="font-weight: bold;">{{ event.scheduled_status }}</em></span></td>
+                                    {% comment %} <td><span>Points: {{ event.points }}</span></td> {% endcomment %}
+                                    <td><span>Maximum Attende: <em style="font-weight: bold;">{{ event.maximum_attende }}</em></span></td>
+                                </tr>
+                            </table>
+                            <p >{{ event.description|safe }}</p>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="footer text-center m-2">
+                    <a href="{% url 'admin_events:event-list' %}" class="btn btn-success">Back to Event List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
