@@ -1,6 +1,6 @@
 # Event Management and Reservation Web Application
-<img width="942" alt="p1" src="https://github.com/SalahEddine-Ghannouch/GetTicket_Events_Django/assets/79339578/f590b4f3-b6e6-457b-b787-91baa9f55143">
-<img width="942" alt="p2" src="https://github.com/SalahEddine-Ghannouch/GetTicket_Events_Django/assets/79339578/01562ac5-10ab-4590-b361-d077374ffb24">
+<img width="942" alt="p1" src="https://github.com/SalahEddine-Ghannouch/GetTicket_Events_Django/assets/79339578/241bb844-1c45-4856-a1db-596ec8ec7bee">
+<img width="942" alt="p2" src="https://github.com/SalahEddine-Ghannouch/GetTicket_Events_Django/assets/79339578/8d1d02b6-900c-402f-b342-648acdb1a3d3">
 
 This Django project aims to develop a web application for the management and online reservation of events, this project caters to three main actors: the administrator, the organizer, and the customer. Each actor has specific functionalities and access levels within the application.
 
