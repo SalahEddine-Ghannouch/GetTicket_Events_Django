@@ -4,13 +4,17 @@ from main.models import Cart
 from django.db.models import Sum
 from django.http import JsonResponse
 from datetime import datetime
-# from django.db.models import Q
+from django.utils.html import strip_tags
+from django import template
+
 
 # Create your views here.
 def index(request):
-    events = Event.objects.select_related('eventimage').filter(status='completed')    
+    events = Event.objects.select_related('eventimage').filter(status='active')    
+    event = Event.objects.all()
     Topevents = Payments.objects.values('eventName').annotate(total_quantity=Sum('Quantity')).order_by('-total_quantity')[:4]
-    return render(request, 'index.html', {'events' : events,'Topevents':Topevents})
+    return render(request, 'index.html', {'events' : events,'Topevents':Topevents, 'event':event})
+
 
 def UserCart(request):
     if request.user.is_authenticated:
@@ -43,14 +47,30 @@ def CartCheckout(request):
 
 
 def searchEvents(request):
+    categories = Event.objects.values_list('category_id', flat=True).distinct()
+    eventss = Event.objects.select_related('eventimage').filter(status='active')    
     if request.method == 'GET':
         query = request.GET.get('query')
-        if query:
-            events = Event.objects.select_related('eventimage').filter(status = 'completed',name__icontains = query)
-            return render(request, 'search.html', {'events' : events})
+        category = request.GET.get('category')
+
+        if category and query:
+            cat = int(category)
+            event = eventss.filter(category_id=cat)
+            events = event.filter(name__icontains = query)
+            return render(request, 'search.html', {'events': events})
+        elif query:
+            events = event.filter(name__icontains = query)
+            return render(request, 'search.html', {'events': events})
+        elif category:
+            cat = int(category)
+            events = eventss.filter(category_id=cat)
+            return render(request, 'search.html', {'events': events})
         else:
-            return render(request, 'index.html', {'events' : events})
-        
+            return render(request, 'index.html', {'events' : eventss})        
+    else:
+        return render(request, 'index.html', {'events' : eventss})
+
+
 def add_to_cart(request):
     if request.method == 'POST' and request.is_ajax():
         event_id = request.POST.get('event_id')

@@ -121,7 +121,14 @@
                         <p class="fs-4 text-white mb-4 animated slideInDown"></p>
                         <form action="{% url 'searchEvents' %}" method="get">
                             <div class="position-relative w-75 mx-auto animated slideInDown">
-                                <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="search" placeholder="Search for events" name="query">
+                                <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="search" placeholder="Search for events by event name"  name="query">
+                                <select name="category" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-1 end-0 me-2 custom-select" style="margin-top: 3px;">
+                                  <option value="">-- All categories --</option>
+                                  <option value="1">Spectacle</option>
+                                  <option value="2">Théatrale</option>
+                                  <option value="3">Sportive</option>
+                                  <option value="4">Technologie</option>
+                                </select>
                                 <button type="submit" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top: 7px;">Search</button>
                             </div>
                         </form>
@@ -155,10 +162,14 @@
   });
 </script>
 
-
-
-
-
+<style>
+  .custom-select {
+    background-color: transparent;
+  }
+  .custom-select option{
+    background-color: transparent;
+  }
+  </style>
 
 <script>
     window.addEventListener('scroll', function() {

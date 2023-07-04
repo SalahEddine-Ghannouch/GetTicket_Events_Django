@@ -2,13 +2,14 @@
 {% load static %}
 {% block content %}
 
+
 <!-- Package Start -->
 <div class="container" id="blur">
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="section-title bg-white text-center text-primary px-3">Events</h6>
-                <h1 class="mb-5">Upcomping Events</h1>
+                <h1 class="mb-5">Upcoming Events</h1>
             </div>
             
                 <div id="events-container">
@@ -35,7 +36,7 @@
                                         </div>
                                         <p>{{ eve.name }}</p>
                                         <div class="d-flex justify-content-center mb-2" id="blur">
-                                            <a href="#" onclick="toggleBlur('{{ eve.name }}','{{eve.description|escapejs}}'); return false;" class="btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Event Details</a>
+                                            <a href="#" onclick="toggleBlur('{{ eve.name }}','{{eve.description|striptags}}'); return false;" class="btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Event Details</a>
                                             <!--<button data-event="{{ eve.id }}" data-action="add" onclick="addToCart('{{ eve.id }}')" class="btn btn-sm btn-primary px-3  border-end">Add To Cart</button>-->
                                             {% if user.is_authenticated %}
                                             <button class="btn-cart btn-sm btn-primary px-3  border-end" data-event-id="{{ eve.id }}" id="addToCartBtn" style="color: white;">Add To Cart</button>
@@ -91,7 +92,7 @@
     <style>
         .testimonial-carousel .testimonial-item {
             width: 420px;
-            height: 400px;
+            height: 490px;
         }
     </style>
 
@@ -103,14 +104,14 @@
                 <h1 class="mb-5">Our Top selling Events</h1>
             </div>
             <div class="owl-carousel testimonial-carousel position-relative">
-                {% for ev in events %}
+                {% for ev in event %}
                     {% for top in Topevents %}
                         {% if ev.name == top.eventName %}
                             <div class="testimonial-item bg-white text-center border p-4">
                                 <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="{{ev.eventimage.image.url}}" style="width: 80px; height: 80px;">
-                                <h5 class="mb-0">{{ev.name}}</h5>
+                                <h5 class="mb-0">{{top.eventName}}</h5>
                                 <p>{{ev.venue}}, {{ev.start_date}}</p>
-                                <p class="mb-0">{{ev.description}}</p>
+                                {{ev.description|safe}}
                             </div>
                         {% endif %}
                     {% endfor %}
@@ -129,6 +130,8 @@
     </p>
     <a href="#" onclick="toggleBlur(); return false;">Close</a>
   </div>
+
+
     <!-- Footer Start -->
    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s" id="contact">
     <div class="container py-5">
