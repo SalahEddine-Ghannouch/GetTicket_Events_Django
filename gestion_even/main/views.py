@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from events.models import Event,Payments
 from main.models import Cart
 from django.db.models import Sum
@@ -6,14 +6,15 @@ from django.http import JsonResponse
 from datetime import datetime
 from django.utils.html import strip_tags
 from django import template
-
+from django.core.mail import send_mail
+from django.conf import settings
 
 # Create your views here.
-def index(request):
+def index(request,message=None):
     events = Event.objects.select_related('eventimage').filter(status='active')    
     event = Event.objects.all()
     Topevents = Payments.objects.values('eventName').annotate(total_quantity=Sum('Quantity')).order_by('-total_quantity')[:4]
-    return render(request, 'index.html', {'events' : events,'Topevents':Topevents, 'event':event})
+    return render(request, 'index.html', {'events' : events,'Topevents':Topevents, 'event':event,'message':message})
 
 
 def UserCart(request):
@@ -132,3 +133,31 @@ def rmoveitem(request):
     
     # Return a JSON response indicating failure
     return JsonResponse({'message': 'Invalid request.'}, status=400)
+
+
+
+
+def feedback(request):
+    if request.method == 'POST':
+        feedback = request.POST.get('feedback')
+        user = request.user
+        # If the user is logged in and has an email address
+        if user.is_authenticated and user.email:
+            sender_email = user.email
+            # print(sender_email)
+        else:
+            message = "You Should logged First !"
+            # return render(request, 'search.html', {'message': message})
+            return index(request, message = message)
+            
+        send_mail(
+            'Feedback received 2',
+            feedback,
+            settings.EMAIL_HOST_USER,
+            [sender_email],  # Replace with recipient email address(es)
+            fail_silently=False,
+        )
+        messager = "your message sent successfully !"
+        return render(request, 'index.html', {'message': messager})
+
+    return render(request, 'index.html')  # Render the feedback form template

@@ -234,5 +234,10 @@
 <script src="{% static 'js/main.js' %}"></script>
 <script src="{% static 'js/togel.js' %}"></script>
 <script src="{% static 'js/cart.js' %}"></script>
-
+<script>
+    var message = "{{ message }}";
+    if (message) {
+      alert(message);
+    }
+  </script>
 {% endblock %}
