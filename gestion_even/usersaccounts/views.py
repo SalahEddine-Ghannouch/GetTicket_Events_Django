@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import login,update_session_auth_hash
 from events.models import Payments, Event
 from django.db.models import OuterRef
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 def register(request):
@@ -61,6 +62,9 @@ def login_user(request):
             if user is not None:
                 auth.login(request, user)
                 login(request, user)
+                # response = render(request, 'index.html')
+                # response.set_cookie('username',username)
+                # response.set_cookie('user',user)
                 return redirect('/')
             else:
                 messages.info(request, 'Incorrect password')
@@ -81,7 +85,10 @@ def login_user(request):
 
 def logout_user(request):
     auth.logout(request)
-    return redirect('/')
+    response = redirect('/')
+    # response.delete_cookie('username')
+    # response.delete_cookie('user')
+    return response
 
 
 
