@@ -105,7 +105,8 @@ def profile_user(request):
             event = events.filter(name=payment.eventName).first()
             if event:
                 joined_data[payment] = event
-        
+        # joined_data = {payment: event for payment, event in joined_data.items() if event}
+
         if request.method == 'POST':
             current_user.first_name = request.POST.get('first_name')
             current_user.last_name = request.POST.get('last_name')

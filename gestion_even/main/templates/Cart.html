@@ -86,21 +86,21 @@
 </div>
 
 
-    <div id="popup" style="height: 98vh; border-radius: 1%;">
+    <div id="popup" style="height: 740px; border-radius: 9%;">
         <div class="container d-lg-flex" style="border-radius: 2%; width: max-content;">
             <div class="box-2">
                 <div class="box-inner-2">
                     <div>
                         <p class="fw-bold" style="font-size: x-large;">Payment Details</p>
-                        <p class="dis mb-3" style="font-size: medium;">Complete your purchase by providing your payment details</p>
+                        <p class="dis mb-2" style="font-size: medium;">Complete your purchase by providing your payment details</p>
                     </div>
                     <form action="">
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <p class="dis fw-bold mb-2">Email address</p>
                             <input class="form-control" type="email" value="{{user.email}}" name="email" id="email">
                         </div>
                         <div>
-                            <p class="dis fw-bold mb-2">Card details</p>
+                            <p class="dis fw-bold mb-1">Card details</p>
                             <div class="d-flex align-items-center justify-content-between card-atm border rounded">
                                 <div class="fab fa-cc-visa ps-3"></div>
                                 <input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX" name="CardNumber" id="CardNumber">
@@ -111,16 +111,16 @@
                                 </div>
                             </div>
                             <div class="my-3 cardname">
-                                <p class="dis fw-bold mb-2">Cardholder name</p>
+                                <p class="dis fw-bold mb-1">Cardholder name</p>
                                 <input class="form-control" type="text" placeholder="Cardholder Name" name="Holder" id="holderid">
                             </div>
                             <div class="address">                         
                                 <div class="d-flex flex-column dis">
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <div class="d-flex align-items-center justify-content-between mb-1">
                                         <p class="fw-bold" style="font-size: large;">Tickets : </p>
                                         <p id="result" class="fw-bold" style="font-size: large;">{{count}}</p>
                                     </div>
-                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <div class="d-flex align-items-center justify-content-between mb-1">
                                         <p class="fw-bold" style="font-size: large;">Total : </p>
                                         <p id="result" class="fw-bold" style="font-size: large;">{{total}} DH</p>
                                     </div>

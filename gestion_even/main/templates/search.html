@@ -36,7 +36,7 @@
                                         </div>
                                         <p>{{ eve.name }}</p>
                                         <div class="d-flex justify-content-center mb-2" id="blur">
-                                            <a href="#" onclick="toggleBlur('{{ eve.name }}','{{eve.description|striptags}}'); return false;" class="btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Event Details</a>
+                                            <a href="" onclick="toggleBlur('{{ eve.name }}','{{eve.description|escapejs}}'); return false;" class="btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Event Details</a>
                                             {% if user.is_authenticated %}
                                             <button class="btn-cart btn-sm btn-primary px-3  border-end" data-event-id="{{ eve.id }}" id="addToCartBtn" style="color: white;">Add To Cart</button>
                                             {% endif %}

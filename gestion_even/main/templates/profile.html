@@ -51,7 +51,7 @@
     <div class="container-fluid position-relative p-0">
         <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
             <a href="/" class="navbar-brand p-0">
-                <h1 class="text-primary m-0"><i class="fa fa-map-marker-alt me-3"></i>EventTick</h1>
+                <h1 class="text-primary m-0"><i class="fa fa-ticket-marker-alt me-3"></i>EventTick</h1>
                 <!-- <img src="img/logo.png" alt="Logo"> -->
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -64,7 +64,7 @@
                     <a href="/#blur" class="nav-item nav-link">Events</a>
                     <a href="{% url 'useracc:Yourprofile' %}" class="nav-item nav-link active">Profile</a>
                 
-                    <a href="#" class="nav-item nav-link">Contact</a>
+                    <a href="/#contact" class="nav-item nav-link">Contact</a>
                 </div>
                 {% if user.is_authenticated %}
                 <div class="row">
@@ -173,60 +173,11 @@
             <div class="col-md-4">
                 <div class="p-3 py-5" style="width: 100%;">
                     <div class="d-flex justify-content-between align-items-center experience"><span>Your Tickets</span><span class="border px-3 p-1"></span></div><br>
-                    {% for pay in pays %}
-                        <!--<div class="col-md-12"><label class="labels">{{pay.eventName}}</label><input type="text" class="form-control" value="Ticket N : {{pay.TicketNumber}}" readonly></div>-->
-                    {% endfor %}
-                    
-
-                        <div class="ticket" style="height: 500px; width: 100%; overflow-y: scroll; ">
-                            {% for payment, event in joined_data.items %}
-                                    <div class="holes-top"></div>
-                                    <div class="title">
-                                        <p class="cinema"></p>
-                                        <p class="movie-title">{{event.name}}</p>
-                                    </div>
-                                    <div class="poster">
-                                        <img style="width: 350px; height: 250px;" src="{{event.eventimage.image.url}}" alt="Movie: Only God Forgives" />
-                                    </div>
-                                    <div class="info">
-                                    <table>
-                                        <tr>
-                                            <th>MONTH</th>
-                                            <th>DAY</th>
-                                            <th>YEAR</th>
-                                        </tr>
-                                        <tr>
-                                            <td class="bigger">{{ event.start_date|date:"F" }}</td>
-                                            <td class="bigger">{{ event.start_date|date:"d" }}</td>
-                                            <td class="bigger">{{ event.start_date|date:"Y" }}</td>
-                                        </tr>
-                                    </table>
-                                    <table>
-                                        <tr>
-                                            <th>PRICE</th>
-                                        </tr>
-                                        <tr>
-                                            <td>${{event.price}}</td>
-                                        </tr>
-                                    </table>
-                                    </div>
-                                    <div class="holes-lower"></div>
-                                    <div class="serial">
-                                        <table class="barcode"><tr></tr></table>
-                                        <table class="numbers">
-                                            <tr>
-                                                {% for char in payment.TicketNumber %}
-                                                <td>{{char}}</td>
-                                                {% endfor %}
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <hr style="border-top: 2px solid black; font-weight: bold;">
-                            {% endfor %}
+                        <div class="ticket" style="height: 400px; width: 100%; ">
                         </div>
                     </div>
                        
-                </div>
+            </div>
             </div>
         </div>
     </div>

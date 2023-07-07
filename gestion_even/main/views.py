@@ -9,6 +9,8 @@ from django import template
 from django.core.mail import send_mail
 from django.conf import settings
 
+
+
 # Create your views here.
 def index(request,message=None):
     events = Event.objects.select_related('eventimage').filter(status='active')    
@@ -26,7 +28,6 @@ def UserCart(request):
         count = items.count()
         for item in items:
             total += item.price * item.quantity
-        
         return render(request, 'Cart.html',{'items':items,'total':total,'count':count})
     else:
         items = []
@@ -53,7 +54,6 @@ def searchEvents(request):
     if request.method == 'GET':
         query = request.GET.get('query')
         category = request.GET.get('category')
-
         if category and query:
             cat = int(category)
             event = eventss.filter(category_id=cat)
@@ -124,9 +124,9 @@ def rmoveitem(request):
         print(event_name)      
         #item = Cart.objects.filter(eventName=event_name).first()
         Cart.objects.filter(pk__in=Cart.objects.filter(eventName=event_name).values_list('pk', flat=True)[1:]).delete()
-        #item = Cart.objects.filter(eventName=event_name)[:1]
+        # item = Cart.objects.filter(eventName=event_name)[:1]
         #print(item)
-        #item.delete()
+        # item.delete()
         
         # Return a JSON response indicating success
         return JsonResponse({'message': 'Item removed successfully.'})

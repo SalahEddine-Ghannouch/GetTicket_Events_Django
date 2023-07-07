@@ -11,7 +11,7 @@ const toggleBlur = (title,desc) => {
   eventTitleEl.textContent = eventTitle;
 
   const eventDesc = document.getElementById("desc");
-  var eventdesc = removeHtmlTags(desc);
+  var eventdesc = desc;
   eventDesc.textContent = eventdesc;
 
 
