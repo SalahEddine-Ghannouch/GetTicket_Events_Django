@@ -9,7 +9,7 @@ django-js-asset==1.2.2
 django-mapbox-location-field==1.5.0
 djongo==1.3.2
 dnspython==2.6.1
-Pillow==10.2.0
+Pillow==10.3.0
 pymongo==4.6.3
 python-dateutil==2.8.1
 pytz==2020.1
